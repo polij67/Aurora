@@ -8,7 +8,7 @@ audio.py
 auroraspec.py
 spec.py
 nohup.out
-config.ini 
+#config.ini 
 config.ini.bak 
 LEDTests/
 
@@ -29,7 +29,7 @@ dist/
 downloads/
 eggs/
 .eggs/
-lib/
+#lib/
 lib64/
 parts/
 sdist/

@@ -50,6 +50,7 @@ class AuroraExtension:
             self.darkThreshhold = int(
                 os.environ["AURORA_DARKTHRESHOLD"]
             )  # this defines if we are gonna bother lighting up the pixels if they are below this threshold
+            self.brightnessScaling = float(os.environ["AURORA_BRIGHTNESSSCALER"])
         # This is no longer used as it makes it noticably slower :(
 
         except Exception as e:
@@ -397,22 +398,34 @@ class AuroraExtension:
             startPoint = 0
             for i in range(self.pixelsLeft):
                 B, G, R = resizedLeft[i][0]
+                B = B*self.brightnessScaling
+                G = G*self.brightnessScaling
+                R = R*self.brightnessScaling
                 self.pixels[self.pixelsLeft - (startPoint + i) - 1] = (R, G, B)
 
             startShowTime = datetime.datetime.now()
             startPoint += self.pixelsLeft
             for i in range(self.pixelsTop):
                 B, G, R = resizedTop[0][i]
+                B = B*self.brightnessScaling
+                G = G*self.brightnessScaling
+                R = R*self.brightnessScaling
                 self.pixels[startPoint + i] = (R, G, B)
 
             startPoint += self.pixelsTop
             for i in range(self.pixelsRight):
                 B, G, R = resizedRight[i][0]
+                B = B*self.brightnessScaling
+                G = G*self.brightnessScaling
+                R = R*self.brightnessScaling
                 self.pixels[startPoint + i] = (R, G, B)
 
             startPoint += self.pixelsRight
             for i in range(self.pixelsBottom):
                 B, G, R = (0, 0, 0)
+                B = B*self.brightnessScaling
+                G = G*self.brightnessScaling
+                R = R*self.brightnessScaling
                 if any(val > self.darkThreshhold for val in resizedBottom[0][i]):
                     B, G, R = resizedBottom[0][i]
                 self.pixels[startPoint + self.pixelsBottom - i - 1] = (R, G, B)
